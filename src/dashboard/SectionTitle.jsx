@@ -8,5 +8,5 @@ export default function SectionTitle(props) {
 }
 
 SectionTitle.propTypes = {
-  children: PropType.string
-}
+  children: PropType.string.isRequired,
+};

@@ -2,11 +2,10 @@ import React from 'react';
 import {
   Card,
 } from '@edx/paragon';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 
 export default function ExploreCard(props) {
-
   return (
     <Card className="exploreCard">
       <Card.Body className="exploreCardBody">
@@ -17,8 +16,8 @@ export default function ExploreCard(props) {
   );
 }
 
-ExploreCard.propTypes - {
-  text: PropTypes.string,
-  icon: PropTypes.string,
-  iconClassNames: PropTypes.string,
-}
+ExploreCard.propTypes = {
+  text: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
+  iconClassName: PropTypes.string.isRequired,
+};

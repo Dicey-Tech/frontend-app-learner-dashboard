@@ -4,12 +4,11 @@ import {
   Button,
 } from '@edx/paragon';
 import PropTypes from 'prop-types';
-import jewellery from './JewelleryOrganiser.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faBookmark} from '@fortawesome/free-regular-svg-icons';
+import { faBookmark } from '@fortawesome/free-regular-svg-icons';
+import jewellery from './JewelleryOrganiser.png';
 
 export default function CourseCard(props) {
-
   return (
     <Card className="courseCard">
       <Card.Img variant="top" src={jewellery} className="card-image" />
@@ -41,9 +40,9 @@ export default function CourseCard(props) {
   );
 }
 
-CourseCard.propTypes - {
-  title: PropTypes.string,
-  ageGroup: PropTypes.string,
-  length: PropTypes.string,
-  description: PropTypes.string,
-}
+CourseCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  ageGroup: PropTypes.string.isRequired,
+  length: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+};
