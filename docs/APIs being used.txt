@@ -1,0 +1,223 @@
+EDx
+
+-----------------------------
+enrollment/v1/enrollment API results
+
+HTTP 200 OK
+Allow: GET, POST, HEAD, OPTIONS
+Content-Type: application/json
+Vary: Accept
+
+[
+    {
+        "created": "2020-12-11T15:45:37.835588Z",
+        "mode": "audit",
+        "is_active": true,
+        "course_details": {
+            "course_id": "course-v1:edX+DemoX+Demo_Course",
+            "course_name": "Demonstration Course",
+            "enrollment_start": null,
+            "enrollment_end": null,
+            "course_start": "2013-02-05T05:00:00Z",
+            "course_end": null,
+            "invite_only": false,
+            "course_modes": [
+                {
+                    "slug": "audit",
+                    "name": "Audit",
+                    "min_price": 0,
+                    "suggested_prices": "",
+                    "currency": "usd",
+                    "expiration_datetime": null,
+                    "description": null,
+                    "sku": "68EFFFF",
+                    "bulk_sku": null
+                },
+                {
+                    "slug": "verified",
+                    "name": "Verified Certificate",
+                    "min_price": 149,
+                    "suggested_prices": "",
+                    "currency": "usd",
+                    "expiration_datetime": "2021-12-06T19:36:50.919876Z",
+                    "description": null,
+                    "sku": "8CF08E5",
+                    "bulk_sku": "A5B6DBE"
+                }
+            ]
+        },
+        "user": "edx"
+    }
+]
+-------------------------------
+
+bookmarks/v1/bookmarks
+
+HTTP 200 OK
+Allow: GET, POST, HEAD, OPTIONS
+Content-Type: application/json
+Vary: Accept
+
+{
+    "next": null,
+    "previous": null,
+    "count": 0,
+    "num_pages": 1,
+    "current_page": 1,
+    "start": 0,
+    "results": [ 
+		{
+			id: bookmarkid,
+			course_id: course-id
+			usage_id: ??
+		}
+		]
+}
+
+-----------------------------------------
+
+/Course/v1/course_id/?username=<username>&role=staff
+
+HTTP 200 OK
+Allow: GET, HEAD, OPTIONS
+Content-Type: application/json
+Vary: Accept
+
+{
+    "results": [
+        "course-v1:edX+DemoX+Demo_Course",
+        "course-v1:edX+E2E-101+course"
+    ],
+    "pagination": {
+        "next": null,
+        "previous": null,
+        "count": 2,
+        "num_pages": 1
+    }
+}
+
+-----------------------------------------------
+
+courseware/course/<course_id>
+
+HTTP 200 OK
+Allow: GET, HEAD, OPTIONS
+Content-Type: application/json
+Vary: Accept
+
+{
+    "can_show_upgrade_sock": false,
+    "content_type_gating_enabled": false,
+    "course_expired_message": null,
+    "effort": null,
+    "end": null,
+    "enrollment_start": null,
+    "enrollment_end": null,
+    "id": "course-v1:edX+DemoX+Demo_Course",
+    "license": null,
+    "media": {
+        "course_image": {
+            "uri": "/asset-v1:edX+DemoX+Demo_Course+type@asset+block@images_course_image.jpg"
+        },
+        "course_video": {
+            "uri": null
+        },
+        "image": {
+            "raw": "http://localhost:18000/asset-v1:edX+DemoX+Demo_Course+type@asset+block@images_course_image.jpg",
+            "small": "http://localhost:18000/asset-v1:edX+DemoX+Demo_Course+type@asset+block@images_course_image.jpg",
+            "large": "http://localhost:18000/asset-v1:edX+DemoX+Demo_Course+type@asset+block@images_course_image.jpg"
+        }
+    },
+    "name": "Demonstration Course",
+    "number": "DemoX",
+    "offer_html": null,
+    "org": "edX",
+    "related_programs": null,
+    "short_description": null,
+    "start": "2013-02-05T05:00:00Z",
+    "start_display": "Feb. 5, 2013",
+    "start_type": "timestamp",
+    "pacing": "instructor",
+    "enrollment": {
+        "mode": "audit",
+        "is_active": true
+    },
+    "tabs": [
+        {
+            "title": "Course",
+            "slug": "courseware",
+            "priority": 0,
+            "type": "courseware",
+            "url": "/courses/course-v1:edX+DemoX+Demo_Course/course/"
+        },
+        {
+            "title": "Progress",
+            "slug": "progress",
+            "priority": 1,
+            "type": "progress",
+            "url": "/courses/course-v1:edX+DemoX+Demo_Course/progress"
+        },
+        {
+            "title": "Discussion",
+            "slug": "discussion",
+            "priority": 2,
+            "type": "discussion",
+            "url": "/courses/course-v1:edX+DemoX+Demo_Course/discussion/forum/"
+        },
+        {
+            "title": "Wiki",
+            "slug": "wiki",
+            "priority": 3,
+            "type": "wiki",
+            "url": "/courses/course-v1:edX+DemoX+Demo_Course/course_wiki"
+        },
+        {
+            "title": "Instructor",
+            "slug": "instructor",
+            "priority": 4,
+            "type": "instructor",
+            "url": "/courses/course-v1:edX+DemoX+Demo_Course/instructor"
+        }
+    ],
+    "verified_mode": {
+        "access_expiration_date": null,
+        "price": 149,
+        "currency": "USD",
+        "currency_symbol": "$",
+        "sku": "8CF08E5",
+        "upgrade_url": "http://localhost:18130/basket/add/?sku=8CF08E5"
+    },
+    "show_calculator": false,
+    "original_user_is_staff": true,
+    "is_staff": true,
+    "can_load_courseware": {
+        "has_access": true,
+        "error_code": null,
+        "developer_message": null,
+        "user_message": null,
+        "additional_context_user_message": null,
+        "user_fragment": null
+    },
+    "notes": {
+        "enabled": false,
+        "visible": true
+    },
+    "marketing_url": null,
+    "celebrations": {
+        "first_section": false
+    },
+    "user_has_passing_grade": false,
+    "course_exit_page_is_active": false,
+    "certificate_data": {
+        "cert_status": "audit_passing",
+        "cert_web_view_url": null,
+        "download_url": null,
+        "msg": "You are enrolled in the audit track for this course. The audit track does not include a certificate.",
+        "title": "Your enrollment: Audit track"
+    },
+    "verify_identity_url": null,
+    "linkedin_add_to_profile_url": null
+}
+
+add ?requested_fields=<fieldname>,<fieldname>,...
+
