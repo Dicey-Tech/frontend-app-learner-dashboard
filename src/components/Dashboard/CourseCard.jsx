@@ -6,7 +6,7 @@ import {
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
-import jewellery from './JewelleryOrganiser.png';
+import jewellery from '../../dashboard/JewelleryOrganiser.png';
 
 export default function CourseCard(props) {
   return (

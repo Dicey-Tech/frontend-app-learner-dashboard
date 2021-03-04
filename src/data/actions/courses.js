@@ -9,17 +9,20 @@ import {
 } from '../constants/actionTypes';
 
 /* eslint-disable */
-async function getCoursesInformation(data) {
-    for (const courseId of data) {  
+async function getCoursesInformation(courses) {
+    for (const courseInfo of courses) {  
       try {
-        const courseInfo = await EcomApiService.fetchCourseInfo(courseId);
-        data.coursesTeaching.push(courseInfo);
+        const courseData = await EcomApiService.fetchCourseInfo(courseInfo.courseId);
+        courseInfo.name = courseData.name
+        courseInfo.start = courseData.start
+        courseInfo.description = courseData.short_description
+        courseInfo.media = courseData.media
       }
       catch(error) {
 
       }
     }
-  return data;
+  return courses;
 }
 /* eslint-enable */
 
@@ -30,19 +33,34 @@ const fetchCourses = (user) => (
     return EcomApiService.fetchStudentCourses()
       .then(response => {
         const dat = response.data;
+        // we have to get more data so make a vector here and get courses information
+        // plently of promises here
+        const courses = [];
+        dat.foreach(element => {
+          courses.push({ courseId: element.course_details.course_id });
+        });
+        return getCoursesInformation(courses);
+      }).then(coursesData => {
         dispatch({
           type: GOT_STUDENT_COURSES,
-          courses: dat,
-          totalCourses: dat.length,
+          courses: coursesData,
+          totalCourses: coursesData.length,
         });
         return EcomApiService.fetchStudentBookmarks();
       }).then(response => {
         /* only get the first 10 bookmarks?? */
         const dat = response.data;
+        const bookmarks = [];
+        dat.results.foreach(element => {
+          bookmarks.push({ courseId: element.course_id });
+        });
+        return getCoursesInformation(bookmarks);
+      })
+      .then(coursesData => {
         dispatch({
           type: GOT_BOOKMARKS,
-          bookmarks: dat.results,
-          totalBookmarksCount: dat.count,
+          bookmarks: coursesData,
+          totalBookmarksCount: coursesData.count,
         });
         /* we now need to get the current user and if the user has role "staff" get those
                otherwise we are done. */
@@ -57,13 +75,17 @@ const fetchCourses = (user) => (
       .then(response => {
         /* we get the first page only so then we need to loop over each and fetch the course info */
         const dat = response.data;
-        dat.coursesTeaching = [];
-        return getCoursesInformation(dat.results);
+        const coursesTeaching = [];
+        dat.results.foreach(element => {
+          coursesTeaching.push({ courseId: element });
+        });
+        return getCoursesInformation(coursesTeaching);
       })
-      .then((data) => {
+      .then(coursesData => {
         dispatch({
           type: GOT_COURSES_TEACHING,
-          coursesTeaching: data,
+          coursesTeaching: coursesData,
+          totalCoursesTeaching: coursesData.lenght,
         });
         dispatch({ type: GOT_COURSES });
         return null;
