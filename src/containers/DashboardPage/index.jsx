@@ -5,6 +5,7 @@ import { Icon } from '@edx/paragon';
 import CardSection from '../../components/Dashboard/CardSection';
 
 // replaced by service call
+/*
 const cardData = [
   {
     name: 'Course-1',
@@ -19,7 +20,7 @@ const cardData = [
     description: 'This course teaches students how to create a 3D printed model',
   },
 ];
-
+*/
 export function DashboardPage({
   courses, bookmarks, coursesTeaching, hasCoursesTeaching,
   totalCourses, totalBookmarks, totalCoursesTeaching, showSpinner,
@@ -29,7 +30,7 @@ export function DashboardPage({
       {showSpinner && <div className="spinner-overlay"><Icon className="fa fa-spinner fa-spin fa-5x color-black" /></div>}
       <div className="container-fluid">
         <div className="p-4">
-          <CardSection sectionTitle="My Courses" hasExploreCard cards={courses} total={totalCourses} />
+          <CardSection sectionTitle="My Courses" hasExploreCard="true" cards={courses} total={totalCourses} />
           <CardSection sectionTitle="My Bookmarks" cards={bookmarks} total={totalBookmarks} />
           {hasCoursesTeaching
             && <CardSection sectionTitle="My Teaching" cards={coursesTeaching} total={totalCoursesTeaching} />}
@@ -42,29 +43,26 @@ export function DashboardPage({
 DashboardPage.defaultProps = {
   coursesTeaching: null,
   totalCoursesTeaching: null,
-  showSpinner: false,
+  showCoursesSpinner: false,
+  showBookmarksSpinner: false
 };
 
 DashboardPage.propTypes = {
-  courses: PropTypes.arrayof(PropTypes.Object).isRequired,
-  bookmarks: PropTypes.arrayof(PropTypes.Object).isRequired,
-  coursesTeaching: PropTypes.arrayof(PropTypes.Object),
-  hasCoursesTeaching: PropTypes.bool.isRequired,
+  courses: PropTypes.arrayOf(PropTypes.Object).isRequired,
+  bookmarks: PropTypes.arrayOf(PropTypes.Object).isRequired,
   totalCourses: PropTypes.number.isRequired,
   totalBookmarks: PropTypes.number.isRequired,
-  totalCoursesTeaching: PropTypes.number,
-  showSpinner: PropTypes.bool,
+  showCoursesSpinner: PropTypes.bool,
+  showBookmarksSpinner: PropTypes.bool
 };
 
 export const mapStateToProps = (state) => ({
   courses: state.courses,
   bookmarks: state.bookmarks,
-  coursesTeaching: state.coursesTeaching,
-  hasCoursesTeaching: state.hasCoursesTeaching,
   totalCourses: state.totalCourses,
   totalBookmarks: state.totalBookmarks,
-  totalCoursesTeaching: state.totalCoursesTeaching,
-  showSpinner: state.showSpinner,
+  showCoursesSpinner: state.showCoursesSpinner,
+  showBookmarksSpinner: state.showBookmarksSpinner
 });
 
 export default connect(mapStateToProps)(DashboardPage);

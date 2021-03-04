@@ -33,7 +33,7 @@ class EcomApiService {
     static fetchCourseInfo(courseId) {
       /* given a course identifier fetch the minimal information needed for the dashboard */
 
-      const queryParms = 'fields=id,name,short_description';
+      const queryParms = 'fields=id,name,short_description,media';
 
       const courseInfoUrl = `${EcomApiService.baseUrl}/api/courseware/course/${courseId}/?${queryParms}`;
 

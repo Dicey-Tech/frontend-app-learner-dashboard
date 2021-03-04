@@ -3,23 +3,20 @@ import {
   STARTED_FETCHING_COURSES,
   ERROR_FETCHING_COURSES,
   GOT_STUDENT_COURSES,
-  GOT_COURSES_TEACHING,
   GOT_BOOKMARKS,
 } from '../constants/actionTypes';
 
 const initialState = {
   courses: [],
   bookmarks: [],
-  coursesTeaching: [],
-  hasCoursesTeaching: false,
   startedFetching: false,
   finishedFetching: false,
   errorFetching: false,
   showSuccess: false,
-  showSpinner: true,
+  showCoursesSpinner: true,
+  showBookmarksSpinner: true,
   totalCourses: 0,
   totalBookmarks: 0,
-  totalCoursesTeaching: 0,
 };
 
 const courses = (state = initialState, action) => {
@@ -36,32 +33,30 @@ const courses = (state = initialState, action) => {
         ...state,
         courses: action.courses,
         totalCourses: action.totalCoursesCount,
+        showCoursesSpinner: false,
       };
     case GOT_BOOKMARKS:
       return {
         ...state,
         bookmarks: action.bookmarks,
         totalBookmarks: action.totalBookmarksCount,
-      };
-    case GOT_COURSES_TEACHING:
-      return {
-        ...state,
-        hasCoursesTeaching: true,
-        coursesTeaching: action.coursesTeaching,
-        totalCoursesTeaching: action.totalCoursesTeaching,
+        showBookmarksSpinner: false,
       };
     case STARTED_FETCHING_COURSES:
       return {
         ...state,
         startedFetching: true,
         finishedFetching: false,
-        showSpinner: true,
+        showCoursesSpinner: true,
+        showBookmarksSpinner: true,
       };
     case ERROR_FETCHING_COURSES:
       return {
         ...state,
         finishedFetching: true,
         errorFetching: true,
+        showBookmarksSpinner: false,
+        showCoursesSpinner: false,
       };
     default:
       return state;

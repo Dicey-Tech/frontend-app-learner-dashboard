@@ -31,7 +31,7 @@ CardSection.defaultProps = {
 CardSection.propTypes = {
   sectionTitle: PropTypes.string.isRequired,
   hasExploreCard: PropTypes.bool,
-  courses: PropTypes.arrayof(PropTypes.object),
+  courses: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default CardSection;
