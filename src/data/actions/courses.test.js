@@ -27,10 +27,10 @@ describe('actions', () => {
   });
 
   describe('fetchCourses', () => {
-    const fetchCoursesUrl = `${configuration.ECOMMERCE_BASE_URL}/api/enrollment/v1/enrollment`;
-    const fetchBookmarksUrl = `${configuration.ECOMMERCE_BASE_URL}/api/bookmarks/v1/bookmarks`;
-    const fetchDemoCourseUrl = `${configuration.ECOMMERCE_BASE_URL}/api/courseware/course/course-v1:edX+DemoX+Demo_Course/?fields=id,name,short_description,media`;
-    const fetchDummyCourseUrl = `${configuration.ECOMMERCE_BASE_URL}/api/courseware/course/course-v1:edX+E2E-101+course/?fields=id,name,short_description,media`;
+    const fetchCoursesUrl = `${configuration.LMS_BASE_URL}/api/enrollment/v1/enrollment`;
+    const fetchBookmarksUrl = `${configuration.LMS_BASE_URL}/api/bookmarks/v1/bookmarks/`;
+    const fetchDemoCourseUrl = `${configuration.LMS_BASE_URL}/api/courseware/course/course-v1:edX+DemoX+Demo_Course/?fields=id,name,short_description,media,tabs`;
+    const fetchDummyCourseUrl = `${configuration.LMS_BASE_URL}/api/courseware/course/course-v1:edX+E2E-101+course/?fields=id,name,short_description,media,tabs`;
     const courseData = [
       {
         created: '2020-12-11T15:45:37.835588Z',
@@ -175,6 +175,43 @@ describe('actions', () => {
       start: '2013-02-05T05:00:00Z',
       description: null,
       media: 'http://localhost:18000/asset-v1:edX+DemoX+Demo_Course+type@asset+block@images_course_image.jpg',
+      courseTabs: [
+        {
+          title: 'Course',
+          slug: 'courseware',
+          priority: 0,
+          type: 'courseware',
+          url: '/courses/course-v1:edX+DemoX+Demo_Course/course/',
+        },
+        {
+          title: 'Progress',
+          slug: 'progress',
+          priority: 1,
+          type: 'progress',
+          url: '/courses/course-v1:edX+DemoX+Demo_Course/progress',
+        },
+        {
+          title: 'Discussion',
+          slug: 'discussion',
+          priority: 2,
+          type: 'discussion',
+          url: '/courses/course-v1:edX+DemoX+Demo_Course/discussion/forum/',
+        },
+        {
+          title: 'Wiki',
+          slug: 'wiki',
+          priority: 3,
+          type: 'wiki',
+          url: '/courses/course-v1:edX+DemoX+Demo_Course/course_wiki',
+        },
+        {
+          title: 'Instructor',
+          slug: 'instructor',
+          priority: 4,
+          type: 'instructor',
+          url: '/courses/course-v1:edX+DemoX+Demo_Course/instructor',
+        },
+      ],
     }];
     const bookmarkResult = [{
       courseId: 'course-v1:edX+E2E-101+course',
@@ -182,7 +219,43 @@ describe('actions', () => {
       start: '2016-02-05T05:00:00Z',
       description: null,
       media: 'http://localhost:18000/asset-v1:edX+E2E-101+course+type@asset+block@images_course_image.jpg',
-
+      courseTabs: [
+        {
+          title: 'Course',
+          slug: 'courseware',
+          priority: 0,
+          type: 'courseware',
+          url: '/courses/course-v1:edX+E2E-101+course/course/',
+        },
+        {
+          title: 'Progress',
+          slug: 'progress',
+          priority: 1,
+          type: 'progress',
+          url: '/courses/course-v1:edX+E2E-101+course/progress',
+        },
+        {
+          title: 'Discussion',
+          slug: 'discussion',
+          priority: 2,
+          type: 'discussion',
+          url: '/courses/course-v1:edX+E2E-101+course/discussion/forum/',
+        },
+        {
+          title: 'Wiki',
+          slug: 'wiki',
+          priority: 3,
+          type: 'wiki',
+          url: '/courses/course-v1:edX+E2E-101+course/course_wiki',
+        },
+        {
+          title: 'Instructor',
+          slug: 'instructor',
+          priority: 4,
+          type: 'instructor',
+          url: '/courses/course-v1:edX+E2E-101+course/instructor',
+        },
+      ],
     }];
     it('dispatches when fetching course data', () => {
       const expectedActions = [
@@ -195,7 +268,7 @@ describe('actions', () => {
         {
           type: GOT_BOOKMARKS,
           bookmarks: bookmarkResult,
-          totalBookmarksCount: 1,
+          totalBookmarks: 1,
         },
         { type: GOT_COURSES },
       ];

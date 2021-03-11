@@ -16,7 +16,7 @@ async function getCoursesInformation(courses) {
         courseInfo.start = courseData.data.start
         courseInfo.description = courseData.data.short_description
         courseInfo.media = courseData.data.media.image.small
-        courseInfo.courseTabs = courseData.data.tabs //.find(({type}) => type === 'courseware').url
+        courseInfo.courseTabs = courseData.data.tabs
       }
       catch(error) {
 

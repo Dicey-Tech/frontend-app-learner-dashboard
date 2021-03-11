@@ -11,7 +11,7 @@ import { faBookmark } from '@fortawesome/free-regular-svg-icons';
 export default function CourseCard(props) {
   return (
     <Card className="courseCard">
-      <Card.Img variant="top" src={props.imageUrl} className="card-image" />
+      <Card.Img variant="top" src={props.media} className="card-image" />
       <Card.Body className="pt-2 pl-4 pr-4 pb-2 position-relative">
         <div className="row">
           <Card.Title>{props.name}</Card.Title>
@@ -37,10 +37,14 @@ export default function CourseCard(props) {
   );
 }
 
+CourseCard.defaultProps = {
+  description: 'no description available',
+};
+
 CourseCard.propTypes = {
   name: PropTypes.string.isRequired,
-  tabs: PropTypes.arrayOf(PropTypes.object).isRequired,
-  media: PropTypes.objectOf(PropTypes.any).isRequired,
-  description: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  media: PropTypes.string.isRequired,
+  description: PropTypes.string,
   start: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };

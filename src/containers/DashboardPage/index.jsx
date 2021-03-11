@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import { Icon } from '@edx/paragon';
 import CardSection from '../../components/Dashboard/CardSection';
-import fetchCourses from '../../data/actions/courses'
+import fetchCourses from '../../data/actions/courses';
 // replaced by service call
 /*
 const cardData = [
@@ -22,10 +22,11 @@ const cardData = [
 ];
 */
 class DashboardPage extends React.Component {
+  /* eslint-disable */ 
   constructor(props) {
     super(props);
   }
-
+  /* eslint-enable */
   /*
   courses, bookmarks, totalCourses, totalBookmarks,
   showCoursesSpinner, showBookmarksSpinner,
@@ -36,17 +37,17 @@ class DashboardPage extends React.Component {
   }
 
   render() {
-  return (
-    <main>
-      <div className="container-fluid">
-        <div className="p-4">
-          <CardSection sectionTitle="My Courses" hasExploreCard="true" courses={this.props.courses} total={this.props.totalCourses} showSpinner={this.props.showCoursesSpinner} />
-          <CardSection sectionTitle="My Bookmarks" courses={this.props.bookmarks} total={this.props.totalBookmarks} showSpinner={this.props.showBookmarksSpinner} />
+    return (
+      <main>
+        <div className="container-fluid">
+          <div className="p-4">
+            <CardSection sectionTitle="My Courses" hasExploreCard="true" courses={this.props.courses} total={this.props.totalCourses} showSpinner={this.props.showCoursesSpinner} />
+            <CardSection sectionTitle="My Bookmarks" courses={this.props.bookmarks} total={this.props.totalBookmarks} showSpinner={this.props.showBookmarksSpinner} />
+          </div>
         </div>
-      </div>
-    </main>
-  );
-}
+      </main>
+    );
+  }
 }
 
 DashboardPage.defaultProps = {
@@ -61,9 +62,10 @@ DashboardPage.propTypes = {
   totalBookmarks: PropTypes.number.isRequired,
   showCoursesSpinner: PropTypes.bool,
   showBookmarksSpinner: PropTypes.bool,
+  fetchCourses: PropTypes.func.isRequired,
 };
 
-export const mapStateToProps = state => ({
+const mapStateToProps = state => ({
   courses: state.courses,
   bookmarks: state.bookmarks,
   totalCourses: state.totalCourses,

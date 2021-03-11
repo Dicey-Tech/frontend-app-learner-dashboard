@@ -10,23 +10,33 @@ function CardSection({
 }) {
   const cards = [];
   if (hasExploreCard) {
-    cards.push(<ExploreCard text="Search Courses" icon="fa-search" iconClassName="fa fa-search" key="EXPLORE_CARD"/>);
+    cards.push(<ExploreCard text="Search Courses" key="EXPLORE_CARD" />);
   }
   courses.forEach(element => {
-    const courseUrl = configuration.LMS_BASE_URL + element.courseTabs.find(({ type }) => type === 'courseware').url
-    const courseImageUrl = element.media;
-    const courseStart = element.start; //TODO need to parse this into datetime and format it.
-    cards.push(<CourseCard url={courseUrl} imageUrl={courseImageUrl} name={element.name} 
-      start={courseStart} description={element.description}  key={element.courseId}/>);
+    const courseUrl = configuration.LMS_BASE_URL + element.courseTabs.find(({ type }) => type === 'courseware').url;
+    const courseStart = element.start; // TODO need to parse this into datetime and format it.
+    cards.push(
+      <div className="col" key={element.courseId}>
+        <CourseCard
+          url={courseUrl}
+          media={element.media}
+          name={element.name}
+          start={courseStart}
+          description={element.description}
+        />
+      </div>,
+    );
   });
   return (
     <>
       <SectionTitle>
         <div>{sectionTitle}</div>
       </SectionTitle>
-      <div>
-        {showSpinner && <div>Imagine a Spinner here</div>}
-        {!showSpinner && cards}
+      <div className="container">
+        <div className="row align-items-start">
+          {showSpinner && <div>Imagine a Spinner here</div>}
+          {!showSpinner && cards}
+        </div>
       </div>
     </>
   );
