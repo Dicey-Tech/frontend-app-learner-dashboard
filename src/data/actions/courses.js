@@ -16,6 +16,7 @@ async function getCoursesInformation(courses) {
         courseInfo.start = courseData.data.start
         courseInfo.description = courseData.data.short_description
         courseInfo.media = courseData.data.media.image.small
+        courseInfo.courseTabs = courseData.data.tabs //.find(({type}) => type === 'courseware').url
       }
       catch(error) {
 
@@ -59,7 +60,7 @@ const fetchCourses = () => (
         dispatch({
           type: GOT_BOOKMARKS,
           bookmarks: coursesData,
-          totalBookmarksCount: coursesData.length,
+          totalBookmarks: coursesData.length,
         });
         dispatch({ type: GOT_COURSES });
       })

@@ -30,6 +30,7 @@ describe('actions', () => {
     const fetchCoursesUrl = `${configuration.ECOMMERCE_BASE_URL}/api/enrollment/v1/enrollment`;
     const fetchBookmarksUrl = `${configuration.ECOMMERCE_BASE_URL}/api/bookmarks/v1/bookmarks`;
     const fetchDemoCourseUrl = `${configuration.ECOMMERCE_BASE_URL}/api/courseware/course/course-v1:edX+DemoX+Demo_Course/?fields=id,name,short_description,media`;
+    const fetchDummyCourseUrl = `${configuration.ECOMMERCE_BASE_URL}/api/courseware/course/course-v1:edX+E2E-101+course/?fields=id,name,short_description,media`;
     const courseData = [
       {
         created: '2020-12-11T15:45:37.835588Z',
@@ -49,7 +50,7 @@ describe('actions', () => {
       current_page: 1,
       start: 0,
       results: [
-        { course_id: 'course-v1:edX+DemoX+Demo_Course' },
+        { course_id: 'course-v1:edX+E2E-101+course' },
       ],
     };
     const courseDetail = {
@@ -71,27 +72,129 @@ describe('actions', () => {
       number: 'DemoX',
       start: '2013-02-05T05:00:00Z',
       short_description: null,
+      tabs: [
+        {
+          title: 'Course',
+          slug: 'courseware',
+          priority: 0,
+          type: 'courseware',
+          url: '/courses/course-v1:edX+DemoX+Demo_Course/course/',
+        },
+        {
+          title: 'Progress',
+          slug: 'progress',
+          priority: 1,
+          type: 'progress',
+          url: '/courses/course-v1:edX+DemoX+Demo_Course/progress',
+        },
+        {
+          title: 'Discussion',
+          slug: 'discussion',
+          priority: 2,
+          type: 'discussion',
+          url: '/courses/course-v1:edX+DemoX+Demo_Course/discussion/forum/',
+        },
+        {
+          title: 'Wiki',
+          slug: 'wiki',
+          priority: 3,
+          type: 'wiki',
+          url: '/courses/course-v1:edX+DemoX+Demo_Course/course_wiki',
+        },
+        {
+          title: 'Instructor',
+          slug: 'instructor',
+          priority: 4,
+          type: 'instructor',
+          url: '/courses/course-v1:edX+DemoX+Demo_Course/instructor',
+        },
+      ],
     };
+    const dummyDetail = {
+      id: 'course-v1:edX+E2E-101+course',
+      media: {
+        course_image: {
+          uri: '/asset-v1:edX+E2E-101+course+type@asset+block@images_course_image.jpg',
+        },
+        course_video: {
+          uri: null,
+        },
+        image: {
+          raw: 'http://localhost:18000/asset-v1:edX+E2E-101+course+type@asset+block@images_course_image.jpg',
+          small: 'http://localhost:18000/asset-v1:edX+E2E-101+course+type@asset+block@images_course_image.jpg',
+          large: 'http://localhost:18000/asset-v1:edX+E2E-101+course+type@asset+block@images_course_image.jpg',
+        },
+      },
+      name: 'Dummy Course',
+      number: 'DemoX',
+      start: '2016-02-05T05:00:00Z',
+      short_description: null,
+      tabs: [
+        {
+          title: 'Course',
+          slug: 'courseware',
+          priority: 0,
+          type: 'courseware',
+          url: '/courses/course-v1:edX+E2E-101+course/course/',
+        },
+        {
+          title: 'Progress',
+          slug: 'progress',
+          priority: 1,
+          type: 'progress',
+          url: '/courses/course-v1:edX+E2E-101+course/progress',
+        },
+        {
+          title: 'Discussion',
+          slug: 'discussion',
+          priority: 2,
+          type: 'discussion',
+          url: '/courses/course-v1:edX+E2E-101+course/discussion/forum/',
+        },
+        {
+          title: 'Wiki',
+          slug: 'wiki',
+          priority: 3,
+          type: 'wiki',
+          url: '/courses/course-v1:edX+E2E-101+course/course_wiki',
+        },
+        {
+          title: 'Instructor',
+          slug: 'instructor',
+          priority: 4,
+          type: 'instructor',
+          url: '/courses/course-v1:edX+E2E-101+course/instructor',
+        },
+      ],
+    };
+
     // this is the same for bookmarks as well
-    const courseResult = [{
+    const demoResult = [{
       courseId: 'course-v1:edX+DemoX+Demo_Course',
       name: 'Demonstration Course',
       start: '2013-02-05T05:00:00Z',
       description: null,
       media: 'http://localhost:18000/asset-v1:edX+DemoX+Demo_Course+type@asset+block@images_course_image.jpg',
     }];
+    const bookmarkResult = [{
+      courseId: 'course-v1:edX+E2E-101+course',
+      name: 'Dummy Course',
+      start: '2016-02-05T05:00:00Z',
+      description: null,
+      media: 'http://localhost:18000/asset-v1:edX+E2E-101+course+type@asset+block@images_course_image.jpg',
 
+    }];
     it('dispatches when fetching course data', () => {
       const expectedActions = [
         { type: STARTED_FETCHING_COURSES },
         {
           type: GOT_STUDENT_COURSES,
-          courses: courseResult,
+          courses: demoResult,
           totalCourses: 1,
         },
         {
           type: GOT_BOOKMARKS,
-          bookmarks: courseResult,
+          bookmarks: bookmarkResult,
           totalBookmarksCount: 1,
         },
         { type: GOT_COURSES },
@@ -102,7 +205,9 @@ describe('actions', () => {
       axiosMock.onGet(fetchBookmarksUrl)
         .replyOnce(200, JSON.stringify(bookmarkData));
       axiosMock.onGet(fetchDemoCourseUrl)
-        .reply(200, JSON.stringify(courseDetail));
+        .replyOnce(200, JSON.stringify(courseDetail));
+      axiosMock.onGet(fetchDummyCourseUrl)
+        .replyOnce(200, JSON.stringify(dummyDetail));
 
       return store.dispatch(fetchCourses())
         .then(() => {

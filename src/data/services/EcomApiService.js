@@ -2,7 +2,7 @@ import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { configuration } from '../../config';
 
 class EcomApiService {
-    static baseUrl = configuration.ECOMMERCE_BASE_URL;
+    static baseUrl = configuration.LMS_BASE_URL;
 
     static fetchStudentCourses() {
       /* fetch all the courses where current user is a student */
@@ -14,7 +14,7 @@ class EcomApiService {
     static fetchStudentBookmarks() {
       /* fetch the first 10 bookmarks of the current user */
 
-      const boomakrUrl = `${EcomApiService.baseUrl}/api/bookmarks/v1/bookmarks`;
+      const boomakrUrl = `${EcomApiService.baseUrl}/api/bookmarks/v1/bookmarks/`;
 
       return getAuthenticatedHttpClient().get(boomakrUrl);
     }
@@ -33,7 +33,7 @@ class EcomApiService {
     static fetchCourseInfo(courseId) {
       /* given a course identifier fetch the minimal information needed for the dashboard */
 
-      const queryParms = 'fields=id,name,short_description,media';
+      const queryParms = 'fields=id,name,short_description,media,tabs';
 
       const courseInfoUrl = `${EcomApiService.baseUrl}/api/courseware/course/${courseId}/?${queryParms}`;
 

@@ -6,30 +6,27 @@ import {
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
-import jewellery from '../../dashboard/JewelleryOrganiser.png';
+// import jewellery from '../../dashboard/JewelleryOrganiser.png';
 
 export default function CourseCard(props) {
   return (
     <Card className="courseCard">
-      <Card.Img variant="top" src={jewellery} className="card-image" />
+      <Card.Img variant="top" src={props.imageUrl} className="card-image" />
       <Card.Body className="pt-2 pl-4 pr-4 pb-2 position-relative">
         <div className="row">
-          <Card.Title>{props.title}</Card.Title>
+          <Card.Title>{props.name}</Card.Title>
         </div>
         <div className="row">
           <div className="col col-6 p-0">
-            <Card.Subtitle>{props.ageGroup}</Card.Subtitle>
+            <Card.Subtitle>{props.description}</Card.Subtitle>
           </div>
           <div className="col col-6 p-0 text-right">
-            <Card.Subtitle className>{props.length}</Card.Subtitle>
+            <Card.Subtitle className>{props.start}</Card.Subtitle>
           </div>
-        </div>
-        <div className="row">
-          <Card.Text className="card-description">{props.description}</Card.Text>
         </div>
         <div className="row" id="action-row">
           <div className="col col-6 p-0">
-            <Button variant="primary">Start Now</Button>
+            <Button variant="primary" href={props.url}>Start Now</Button>
           </div>
           <div className="col col-6 p-0 text-right">
             <FontAwesomeIcon icon={faBookmark} className="bookmark-icon" />
@@ -41,8 +38,9 @@ export default function CourseCard(props) {
 }
 
 CourseCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  ageGroup: PropTypes.string.isRequired,
-  length: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  tabs: PropTypes.arrayOf(PropTypes.object).isRequired,
+  media: PropTypes.objectOf(PropTypes.any).isRequired,
   description: PropTypes.string.isRequired,
+  start: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };

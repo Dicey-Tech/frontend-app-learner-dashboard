@@ -32,14 +32,14 @@ const courses = (state = initialState, action) => {
       return {
         ...state,
         courses: action.courses,
-        totalCourses: action.totalCoursesCount,
+        totalCourses: action.totalCourses,
         showCoursesSpinner: false,
       };
     case GOT_BOOKMARKS:
       return {
         ...state,
         bookmarks: action.bookmarks,
-        totalBookmarks: action.totalBookmarksCount,
+        totalBookmarks: action.totalBookmarks,
         showBookmarksSpinner: false,
       };
     case STARTED_FETCHING_COURSES:
