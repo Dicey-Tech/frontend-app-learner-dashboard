@@ -52,7 +52,7 @@ const fetchCourses = () => (
         const dat = response.data;
         const bookmarks = [];
         dat.results.forEach(element => {
-          bookmarks.push({ courseId: element.course_id });
+          bookmarks.push({ usage_id: element.id, courseId: element.course_id });
         });
         return getCoursesInformation(bookmarks);
       })

@@ -3,18 +3,20 @@ import {
   Card,
 } from '@edx/paragon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 import PropTypes from 'prop-types';
+import { configuration } from '../../config';
 import './index.scss';
 
 export default function ExploreCard(props) {
   return (
     <Card className="exploreCard">
       <Card.Body className="exploreCardBody">
-        <div className="exploreSearchIcon">
-          <FontAwesomeIcon icon={faSearch} inverse size="2x" />
-        </div>
+        <Card.Link href={configuration.EXPLORE_COURSES_URL}>
+          <div className="exploreSearchIcon">
+            <FontAwesomeIcon icon={props.icon} inverse size="2x" />
+          </div>
+        </Card.Link>
         <Card.Text>{props.text}</Card.Text>
       </Card.Body>
     </Card>
@@ -23,4 +25,5 @@ export default function ExploreCard(props) {
 
 ExploreCard.propTypes = {
   text: PropTypes.string.isRequired,
+  icon: PropTypes.element.isRequired,
 };

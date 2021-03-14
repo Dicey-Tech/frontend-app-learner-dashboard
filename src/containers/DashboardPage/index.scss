@@ -1,6 +1,8 @@
 
 $shadowColor: #808080;
 $subtitleColor: #9B9B9B;
+$card_width: 18rem;
+$card_height: 20rem;
 
 .sectionTitle {
   font-size: 1.5rem;
@@ -9,9 +11,9 @@ $subtitleColor: #9B9B9B;
 
 %card {
   border-radius: 30px;
-  min-width: 18rem;
-  max-width: 18rem;
-  min-height: 20rem;
+  min-width: $card_width;
+  max-width: $card_width;
+  min-height: $card_height;
   //max-height: 20rem;
   -webkit-box-shadow: 2px 2px 3px 0px $shadowColor;
   box-shadow: 2px 2px 3px 0px $shadowColor;
@@ -106,4 +108,19 @@ $subtitleColor: #9B9B9B;
 
 .text-right {
   text-align: right;
+}
+
+//react-loading skelaton should be same height/width as the cards
+.dicey-react-loading-skeleton {
+  min-width: $card_width;
+  max-width: $card_width;
+  min-height: $card_height;
+
+  & .spinner {
+    height: 3rem;
+    width: 3rem;
+    display:flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
 }
