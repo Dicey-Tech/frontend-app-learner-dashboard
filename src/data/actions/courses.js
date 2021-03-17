@@ -4,7 +4,6 @@ import {
   STARTED_FETCHING_COURSES,
   ERROR_FETCHING_COURSES,
   GOT_STUDENT_COURSES,
-  GOT_BOOKMARKS,
 } from '../constants/actionTypes';
 
 /* eslint-disable */
@@ -45,22 +44,6 @@ const fetchCourses = () => (
           type: GOT_STUDENT_COURSES,
           courses: coursesData,
           totalCourses: coursesData.length,
-        });
-        return EcomApiService.fetchStudentBookmarks();
-      }).then(response => {
-        /* only get the first 10 bookmarks?? */
-        const dat = response.data;
-        const bookmarks = [];
-        dat.results.forEach(element => {
-          bookmarks.push({ usage_id: element.id, courseId: element.course_id });
-        });
-        return getCoursesInformation(bookmarks);
-      })
-      .then(coursesData => {
-        dispatch({
-          type: GOT_BOOKMARKS,
-          bookmarks: coursesData,
-          totalBookmarks: coursesData.length,
         });
         dispatch({ type: GOT_COURSES });
       })

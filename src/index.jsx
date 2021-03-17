@@ -9,7 +9,6 @@ import ReactDOM from 'react-dom';
 import Header, { messages as headerMessages } from '@edx/frontend-component-header';
 import Footer, { messages as footerMessages } from '@edx/frontend-component-footer';
 import ErrorPage from '@edx/frontend-platform/react/ErrorPage';
-
 // import appMessages from './i18n';
 import DashboardPage from './containers/DashboardPage';
 import store from './data/store';

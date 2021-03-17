@@ -7,7 +7,6 @@ import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { configuration } from '../../config';
 import fetchCourses from './courses';
 import {
-  GOT_BOOKMARKS,
   GOT_COURSES,
   GOT_STUDENT_COURSES,
   STARTED_FETCHING_COURSES,
@@ -28,7 +27,6 @@ describe('actions', () => {
 
   describe('fetchCourses', () => {
     const fetchCoursesUrl = `${configuration.LMS_BASE_URL}/api/enrollment/v1/enrollment`;
-    const fetchBookmarksUrl = `${configuration.LMS_BASE_URL}/api/bookmarks/v1/bookmarks/`;
     const fetchDemoCourseUrl = `${configuration.LMS_BASE_URL}/api/courseware/course/course-v1:edX+DemoX+Demo_Course/?fields=id,name,short_description,media,tabs`;
     const fetchDummyCourseUrl = `${configuration.LMS_BASE_URL}/api/courseware/course/course-v1:edX+E2E-101+course/?fields=id,name,short_description,media,tabs`;
     const courseData = [
@@ -42,17 +40,6 @@ describe('actions', () => {
         user: 'edx',
       },
     ];
-    const bookmarkData = {
-      next: null,
-      previous: null,
-      count: 0,
-      num_pages: 1,
-      current_page: 1,
-      start: 0,
-      results: [
-        { course_id: 'course-v1:edX+E2E-101+course' },
-      ],
-    };
     const courseDetail = {
       id: 'course-v1:edX+DemoX+Demo_Course',
       media: {
@@ -213,50 +200,6 @@ describe('actions', () => {
         },
       ],
     }];
-    const bookmarkResult = [{
-      courseId: 'course-v1:edX+E2E-101+course',
-      name: 'Dummy Course',
-      start: '2016-02-05T05:00:00Z',
-      description: null,
-      media: 'http://localhost:18000/asset-v1:edX+E2E-101+course+type@asset+block@images_course_image.jpg',
-      courseTabs: [
-        {
-          title: 'Course',
-          slug: 'courseware',
-          priority: 0,
-          type: 'courseware',
-          url: '/courses/course-v1:edX+E2E-101+course/course/',
-        },
-        {
-          title: 'Progress',
-          slug: 'progress',
-          priority: 1,
-          type: 'progress',
-          url: '/courses/course-v1:edX+E2E-101+course/progress',
-        },
-        {
-          title: 'Discussion',
-          slug: 'discussion',
-          priority: 2,
-          type: 'discussion',
-          url: '/courses/course-v1:edX+E2E-101+course/discussion/forum/',
-        },
-        {
-          title: 'Wiki',
-          slug: 'wiki',
-          priority: 3,
-          type: 'wiki',
-          url: '/courses/course-v1:edX+E2E-101+course/course_wiki',
-        },
-        {
-          title: 'Instructor',
-          slug: 'instructor',
-          priority: 4,
-          type: 'instructor',
-          url: '/courses/course-v1:edX+E2E-101+course/instructor',
-        },
-      ],
-    }];
     it('dispatches when fetching course data', () => {
       const expectedActions = [
         { type: STARTED_FETCHING_COURSES },
@@ -265,18 +208,11 @@ describe('actions', () => {
           courses: demoResult,
           totalCourses: 1,
         },
-        {
-          type: GOT_BOOKMARKS,
-          bookmarks: bookmarkResult,
-          totalBookmarks: 1,
-        },
         { type: GOT_COURSES },
       ];
       const store = mockStore({});
       axiosMock.onGet(fetchCoursesUrl)
         .replyOnce(200, JSON.stringify(courseData));
-      axiosMock.onGet(fetchBookmarksUrl)
-        .replyOnce(200, JSON.stringify(bookmarkData));
       axiosMock.onGet(fetchDemoCourseUrl)
         .replyOnce(200, JSON.stringify(courseDetail));
       axiosMock.onGet(fetchDummyCourseUrl)
