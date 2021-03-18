@@ -6,6 +6,7 @@ import {
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
+import { FormattedDate } from '@edx/frontend-platform/node_modules/react-intl';
 // import jewellery from '../../dashboard/JewelleryOrganiser.png';
 
 export default function CourseCard(props) {
@@ -21,7 +22,7 @@ export default function CourseCard(props) {
             <Card.Subtitle>{props.description}</Card.Subtitle>
           </div>
           <div className="col col-6 p-0 text-right">
-            <Card.Subtitle className>{props.start}</Card.Subtitle>
+            <Card.Subtitle><FormattedDate value={props.start} /></Card.Subtitle>
           </div>
         </div>
         <div className="row" id="action-row">

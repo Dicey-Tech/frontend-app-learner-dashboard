@@ -5,7 +5,7 @@ import CourseCard from '../Cards/CourseCard';
 import SectionTitle from './SectionTitle';
 import { configuration } from '../../config';
 
-function CardSection({
+export default function CardSection({
   sectionTitle, exploreCard, showExploreCardAlways, courses, showSpinner,
 }) {
   const cards = [];
@@ -17,7 +17,7 @@ function CardSection({
   courses.forEach(element => {
     // TODO for bookmarks we have to go to /courses/<course>/jump_to/<usage_id>
     const courseUrl = configuration.LMS_BASE_URL + element.courseTabs.find(({ type }) => type === 'courseware').url;
-    const courseStart = element.start; // TODO need to parse this into datetime and format it.
+    const courseStart = Date.parse(element.start);
     cards.push(
       <div className="col" key={element.courseId}>
         <CourseCard
@@ -58,5 +58,3 @@ CardSection.propTypes = {
   courses: PropTypes.arrayOf(PropTypes.object),
   showSpinner: PropTypes.bool,
 };
-
-export default CardSection;
